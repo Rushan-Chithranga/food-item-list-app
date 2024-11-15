@@ -1,18 +1,29 @@
-import { useState } from "react";
-import { useStore } from "../store";
+import { useState, useEffect } from "react";
 
 function MonthForm() {
   const [monthName, setMonthName] = useState("");
   const [date, setDate] = useState("");
-  const addMonth = useStore((state) => state.addMonth);
-  const saveToStorage = useStore((state) => state.saveToStorage);
+  const [months, setMonths] = useState([]); 
+  useEffect(() => {
+    const storedMonths = JSON.parse(localStorage.getItem("months")) || [];
+    setMonths(storedMonths);
+  }, []);
 
   const handleAddMonth = () => {
     if (monthName && date) {
-      addMonth({ name: monthName, date });
+      const newMonth = {
+        monthName: monthName,
+        date: date,
+        id: Date.now(), 
+      };
+
+      const updatedMonths = [...months, newMonth];
+      setMonths(updatedMonths);
+
+      localStorage.setItem("months", JSON.stringify(updatedMonths));
+
       setMonthName("");
       setDate("");
-      saveToStorage();
     }
   };
 
@@ -56,7 +67,6 @@ function MonthForm() {
         >
           Add month
         </button>
-        
       </form>
     </div>
   );

@@ -1,27 +1,34 @@
 import { useEffect, useState } from "react";
-import { useStore } from "../store";
+import { useParams } from "react-router-dom";
 
-function ItemForm({ monthId }) {
+function ItemForm() {
+  const { monthId } = useParams();
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
-  const addItem = useStore((state) => state.addItem);
-  const saveToStorage = useStore((state) => state.saveToStorage);
-  const items = useStore((state) => state.items[monthId] || []);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (items.length > 0) {
-      saveToStorage();
+    const storedItems = JSON.parse(localStorage.getItem("items")) || {};
+    setItems(storedItems[monthId] || []);
+  }, [monthId]);
+
+  useEffect(() => {
+    if (monthId) {
+      const storedItems = JSON.parse(localStorage.getItem("items")) || {};
+      storedItems[monthId] = items;
+      localStorage.setItem("items", JSON.stringify(storedItems));
     }
-  }, [items, saveToStorage]);
+  }, [items, monthId]);
 
   const handleAddItem = () => {
     if (itemName && quantity) {
-      addItem(monthId, itemName, quantity);
+      const newItem = { id: Date.now(), name: itemName, quantity };
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
       setItemName("");
       setQuantity("");
     }
   };
-
 
   return (
     <div>
