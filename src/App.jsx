@@ -3,7 +3,7 @@ import MonthForm from "./components/MonthForm";
 import MonthList from "./components/MonthList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ItemForm from "./components/ItemForm";
-import Laypout from "./components/Laypout";
+import Laypout from "./components/Layout";
 
 function App() {
   return (

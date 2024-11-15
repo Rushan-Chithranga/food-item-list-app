@@ -8,7 +8,7 @@ function Laypout({ children }) {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col  min-h-screen">
       <header>
         <nav className="bg-gray-900 text-white p-4">
           <div className="flex justify-between items-center">
@@ -44,21 +44,13 @@ function Laypout({ children }) {
             </div>
 
             <div className="hidden lg:flex space-x-6">
-              <Link to="/add-tournament" className="text-lg">
-                Tournament
+              <Link to="/list" className="text-lg">
+                Months
               </Link>
-              <Link to="/add-team" className="text-lg">
+              {/* <Link to="/add-team" className="text-lg">
                 Team
               </Link>
-              <Link to="/add-match" className="text-lg">
-                Match
-              </Link>
-              <Link to="/leaderboard" className="text-lg">
-                Leaderboard
-              </Link>
-              <Link to="/match-list" className="text-lg">
-                Matches List
-              </Link>
+               */}
             </div>
           </div>
 
@@ -67,26 +59,22 @@ function Laypout({ children }) {
               isMenuOpen ? "block" : "hidden"
             } bg-gray-800 text-white p-4 space-y-4`}
           >
-            <Link to="/add-tournament" className="text-lg block">
-              Tournament
+            <Link to="/list" className="text-lg block">
+              Months
             </Link>
-            <Link to="/add-team" className="text-lg block">
+            {/* <Link to="/add-team" className="text-lg block">
               Team
-            </Link>
-            <Link to="/add-match" className="text-lg block">
-              Match
-            </Link>
-            <Link to="/leaderboard" className="text-lg block">
-              Leaderboard
-            </Link>
-            <Link to="/match-list" className="text-lg block">
-              Matches List
-            </Link>
+            </Link> */}
+            
           </div>
         </nav>
       </header>
 
-      <main className="flex-1 bg-gray-200 p-8">{children}</main>
+      <main className="flex-1 bg-gray-200 p-8 ">
+        {/* <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md"> */}
+          {children}
+        {/* </div> */}
+      </main>
     </div>
   );
 }
